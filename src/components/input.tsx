@@ -27,7 +27,7 @@ function Input({ children, variant = "primary" }: InputProps) {
 
 function Field({ ...rest }: TextInputProps) {
   return (
-    <TextInput className="flex-1 text-lg font-regular"
+    <TextInput className="flex-1 text-lg font-regular text-zinc-100"
       placeholderTextColor={colors.zinc[400]}
       cursorColor={colors.zinc[100]}
       selectionColor={Platform.OS === "ios" ? colors.zinc[100] : undefined}

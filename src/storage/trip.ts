@@ -27,4 +27,12 @@ async function remove() {
   }
 }
 
-export const tripStorage = {save, get, remove}
+async function clearStorage() {
+  try {
+    await AsyncStorage.removeItem(TRIP_STORAGE_KEY)
+  } catch (error) {
+    throw error
+  }
+}
+
+export const tripStorage = {save, get, remove, clearStorage}

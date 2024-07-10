@@ -1,8 +1,8 @@
 import { MapPin, Calendar as IconCalendar, Settings2, UserRoundPlus, ArrowRight, X, AtSign } from "lucide-react-native"
 import { Alert, Image, Keyboard, Text, View } from "react-native"
 import { DateData } from "react-native-calendars"
+import { useEffect, useState } from "react"
 import { router } from "expo-router"
-import { useState } from "react"
 import dayjs from "dayjs"
 
 import { calendarUtils, DatesSelected } from "@/utils/calendarUtils"
@@ -13,6 +13,7 @@ import { colors } from "@/styles/colors"
 import { Input } from "@/components/input"
 import { Modal } from "@/components/modal"
 import { Button } from "@/components/button"
+import { Loading } from "@/components/loading"
 import { GuestEmail } from "@/components/email"
 import { Calendar } from "@/components/calendar"
 
@@ -28,6 +29,7 @@ enum ModalContent {
 }
 
 export default function Index() {
+  const [isGettingTrip, setIsGettingTrip] = useState(true)
   const [isCreatingTip, setIsCreatingTip] = useState(false)
   const [showModal, setShowModal] = useState(ModalContent.NONE)
   const [stepForm, setStepForm] = useState(StepForm.TRIP_DETAILS)
@@ -121,6 +123,34 @@ export default function Index() {
       console.log(error)
       setIsCreatingTip(false)
     }
+  }
+
+  async function getTrip() {
+    try {
+      const tripId = await tripStorage.get()
+
+      if (!tripId) {
+        return setIsGettingTrip(false)
+      }
+
+      const trip = await tripServer.getById(tripId)
+
+      if (trip) {
+        return router.navigate(`/trip/${trip.id}`)
+      }
+    } catch (error) {
+      setIsGettingTrip(false)
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    // tripStorage.clearStorage() // CLEAR THE TRIP FROM YOUR PHONE
+    getTrip()
+  }, [])
+
+  if (isGettingTrip) {
+    return <Loading />
   }
 
   return (

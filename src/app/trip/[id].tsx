@@ -46,6 +46,10 @@ export default function Trip() {
     try {
       setIsLoadingTrip(true)
 
+      if (tripParams.participant) {
+        setShowModal(ModalContent.CONFIRM_ATTENDENCE)
+      }
+
       if (!tripParams.id) {
         return router.back()
       }
@@ -123,7 +127,7 @@ export default function Trip() {
         return
       }
 
-      if (!guestName.trim() || guestEmail.trim()) {
+      if (!guestName.trim() || !guestEmail.trim()) {
         return Alert.alert("Confirmação", "Preencha nome e email para confirmar a viagem.")
       }
 
@@ -147,6 +151,26 @@ export default function Trip() {
       Alert.alert("Confirmação", "Não foi possível confriamr.")
     } finally {
       setIsConfirmingAttendence(false)
+    }
+  }
+
+  async function handleRemoveTrip() {
+    try {
+      Alert.alert("Remover viagem", "Tem certeza que deseja remover a viagem?", [
+        {
+          text: "Não",
+          style: "cancel"
+        },
+        {
+          text: "Sim",
+          onPress: async () => {
+            await tripStorage.remove()
+            router.navigate("/")
+          }
+        }
+      ])
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -222,6 +246,10 @@ export default function Trip() {
           <Button onPress={handleUpdateTrip} isLoading={isUpdatingTrip}>
             <Button.Title>Atualizar</Button.Title>
           </Button>
+
+          <TouchableOpacity activeOpacity={0.8} onPress={handleRemoveTrip}>
+            <Text className="text-red-400 text-center mt-6">Remover viagem</Text>
+          </TouchableOpacity>
         </View>
       </Modal>
 

@@ -82,7 +82,7 @@ export function Activities({ tripDetails }: Props) {
         data: dayActivity.activities.map((activity) => ({
           id: activity.id,
           title: activity.title,
-          hour: dayjs(activity.occurs_at).format("hh[:]mm[h]"),
+          hour: dayjs(activity.occurs_at).format("HH[:]mm[h]"),
           isBefore: dayjs(activity.occurs_at).isBefore(dayjs())
         }))
       }))

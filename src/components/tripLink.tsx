@@ -5,8 +5,8 @@ import * as Linking from "expo-linking"
 
 export type TripLinkProps = {
   id: string
-  title: string
-  url: string
+  title: string | null
+  url: string | null
 }
 
 type Props = {
@@ -15,7 +15,7 @@ type Props = {
 
 export function TripLink({ data }: Props) {
   function handleLinkOpen() {
-    Linking.openURL(data.url)
+    Linking.openURL(data.url!)
   }
 
   return (

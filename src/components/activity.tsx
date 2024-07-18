@@ -6,7 +6,7 @@ import clsx from "clsx"
 
 export type ActivityProps = {
   id: string
-  title: string
+  title: string | null
   hour: string
   isBefore: boolean
 }

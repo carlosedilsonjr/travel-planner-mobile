@@ -5,9 +5,9 @@ import { colors } from "@/styles/colors"
 
 export type ParticipantProps = {
   id: string
-  name?: string
-  email: string
-  is_confirmed: boolean
+  name?: string | null
+  email: string | null
+  is_confirmed: boolean | null
 }
 
 type Props = {

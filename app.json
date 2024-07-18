@@ -2,6 +2,7 @@
   "expo": {
     "name": "travel-planner-mobile",
     "slug": "travel-planner-mobile",
+    "owner": "carlosedilsonjr",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -34,6 +35,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "226afc06-ee3a-4b1f-b7b1-481230820b2d"
+      }
     }
   }
 }
